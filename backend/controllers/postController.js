@@ -20,21 +20,6 @@ exports.postById = (req, res, next, id) => {
     });
 };
 
-/*
-exports.getPosts = (req, res) => {
-    const posts = Post.find()
-        .populate("postedBy", "_id name")
-        .populate("comments", "text created")
-        .populate("comments.postedBy", "_id name")
-        .select("_id title body created likes")
-        .sort({ created: -1 })
-        .then(posts => {
-            res.json(posts);
-        })
-        .catch(err => console.log(err));
-};
-*/
-
 // with pagination
 exports.getPosts = async (req, res) => {
   // get current page from req.query or use default value of 1
@@ -124,20 +109,6 @@ exports.isPoster = (req, res, next) => {
   }
   next();
 };
-
-// exports.updatePost = (req, res, next) => {
-//     let post = req.post;
-//     post = _.extend(post, req.body);
-//     post.updated = Date.now();
-//     post.save(err => {
-//         if (err) {
-//             return res.status(400).json({
-//                 error: err
-//             });
-//         }
-//         res.json(post);
-//     });
-// };
 
 exports.updatePost = (req, res, next) => {
   let form = new formidable.IncomingForm();
@@ -266,31 +237,6 @@ exports.uncomment = (req, res) => {
       }
     });
 };
-
-// exports.updateComment = async (req, res) => {
-//     const comment = req.body.comment;
-//     // const id = req.body.id;
-//     const postId = req.body.postId;
-//     const userId = req.body.userId;
-//     // comment.postedBy = req.body.userId;
-
-//     const result = await Post.findByIdAndUpdate(
-//         postId,
-//         {
-//             $set: {
-//                 comments: {
-//                     _id: comment._id,
-//                     text: comment.text,
-//                     postedBy: userId
-//                 }
-//             }
-//         },
-//         { new: true, overwrite: false }
-//     )
-//         .populate('comments.postedBy', '_id name')
-//         .populate('postedBy', '_id name');
-//     res.json(result);
-// };
 
 exports.updateComment = (req, res) => {
   let comment = req.body.comment;
